@@ -1,0 +1,98 @@
+# Mensagem de boas-vindas
+print("Bem-vindo ao Controle de Colaboradores do Daniel Mitsonosuke Yomoto")
+
+# Variáveis globais
+lista_colaboradores = []
+id_global = 0
+
+# Função para cadastrar um colaborador
+def cadastrar_colaborador(id):
+    nome = input("Digite o nome do colaborador: ")
+    while nome[0].isdigit():  # Verifica se o nome começa com um número
+        print("O nome não pode começar com um número. Tente novamente.")
+        nome = input("Digite o nome do colaborador: ")
+
+    setor = input("Digite o setor do colaborador: ")
+    salario = float(input("Digite o salário do colaborador: "))
+
+    colaborador = {
+        "ID": id,
+        "Nome": nome,
+        "Setor": setor,
+        "Salário": salario
+    }
+
+    lista_colaboradores.append(colaborador)
+
+# Função para consultar colaboradores
+def consultar_colaborador():
+    print("Opções de consulta:")
+    print("1. Consultar Todos")
+    print("2. Consultar por Id")
+    print("3. Consultar por Setor")
+    print("4. Retornar ao menu")
+
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        for colaborador in lista_colaboradores:
+            print(colaborador)
+    elif opcao == "2":
+        id_consulta = int(input("Digite o ID do colaborador a ser consultado: "))
+        encontrado = False
+        for colaborador in lista_colaboradores:
+            if colaborador["ID"] == id_consulta:
+                print(colaborador)
+                encontrado = True
+        if not encontrado:
+            print("Colaborador não encontrado.")
+    elif opcao == "3":
+        setor_consulta = input("Digite o setor a ser consultado: ")
+        encontrado = False
+        for colaborador in lista_colaboradores:
+            if colaborador["Setor"] == setor_consulta:
+                print(colaborador)
+                encontrado = True
+        if not encontrado:
+            print("Nenhum colaborador encontrado neste setor.")
+    elif opcao == "4":
+        return
+    else:
+        print("Opção inválida. Por favor, escolha uma opção válida.")
+
+# Função para remover um colaborador
+def remover_colaborador():
+    id_remocao = int(input("Digite o ID do colaborador a ser removido: "))
+    for colaborador in lista_colaboradores:
+        if colaborador["ID"] == id_remocao:
+            lista_colaboradores.remove(colaborador)
+            print("Colaborador removido com sucesso.")
+            return
+    print("Colaborador não encontrado.")
+
+# Função principal do menu
+def menu_principal():
+    global id_global
+    while True:
+        print("\nMenu Principal:")
+        print("1. Cadastrar Colaborador")
+        print("2. Consultar Colaborador")
+        print("3. Remover Colaborador")
+        print("4. Encerrar Programa")
+        
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            id_global += 1
+            cadastrar_colaborador(id_global)
+        elif opcao == "2":
+            consultar_colaborador()
+        elif opcao == "3":
+            remover_colaborador()
+        elif opcao == "4":
+            break
+        else:
+            print("Opção inválida. Por favor, escolha uma opção válida.")
+
+# Chamada da função principal
+menu_principal()
